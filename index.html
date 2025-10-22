@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nduwa Makinka Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="calculator-container">
+    <!-- ===== TITLE ===== -->
+    <h1 class="app-title">NDUWA MAKINKA</h1>
+
+    <!-- ===== CALCULATOR BODY ===== -->
+    <div class="calculator">
+      <div class="display">
+        <!-- Quotes appear here -->
+        <div id="quoteBox" class="quote-box">
+          “The important thing is not to stop questioning.” – Albert Einstein
+        </div>
+        <!-- User input/output -->
+        <input type="text" id="display" readonly placeholder="0" />
+      </div>
+
+      <!-- ===== BUTTONS ===== -->
+      <div class="buttons">
+        <button onclick="clearDisplay()">AC</button>
+        <button onclick="appendChar('(')">(</button>
+        <button onclick="appendChar(')')">)</button>
+        <button onclick="appendChar('%')">%</button>
+
+        <button onclick="appendChar('Math.sqrt(')">√</button>
+        <button onclick="appendChar('Math.PI')">π</button>
+        <button onclick="appendChar('^')">^</button>
+        <button onclick="appendChar('!')">!</button>
+
+        <button onclick="appendChar('Math.sin(')">sin</button>
+        <button onclick="appendChar('Math.cos(')">cos</button>
+        <button onclick="appendChar('Math.tan(')">tan</button>
+        <button onclick="appendChar('/')">÷</button>
+
+        <button onclick="appendChar('Math.E')">e</button>
+        <button onclick="appendChar('Math.log(')">ln</button>
+        <button onclick="appendChar('Math.log10(')">log</button>
+        <button onclick="appendChar('*')">×</button>
+
+        <button onclick="appendChar('7')">7</button>
+        <button onclick="appendChar('8')">8</button>
+        <button onclick="appendChar('9')">9</button>
+        <button onclick="appendChar('-')">−</button>
+
+        <button onclick="appendChar('4')">4</button>
+        <button onclick="appendChar('5')">5</button>
+        <button onclick="appendChar('6')">6</button>
+        <button onclick="appendChar('+')">+</button>
+
+        <button onclick="appendChar('1')">1</button>
+        <button onclick="appendChar('2')">2</button>
+        <button onclick="appendChar('3')">3</button>
+        <button class="equals" onclick="calculate()">=</button>
+
+        <button onclick="appendChar('0')">0</button>
+        <button onclick="appendChar('.')">.</button>
+        <button onclick="deleteChar()">⌫</button>
+        <footer class="app-footer">
+  <p style="font-style: italic;">Makinka Web Developers</p>
+</footer>
+      </div>
+    </div>
+  </div>
+  <footer class="app-footer">
+  <p>Makinka Web Developers</p>
+</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

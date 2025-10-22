@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap');
+
+/* ===== GENERAL STYLING ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("background.jpg") no-repeat center center/cover; 
+  /* 🔸 Change 'background.jpg' to your preferred image file */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== CONTAINER ===== */
+.calculator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 420px;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+/* ===== TITLE ===== */
+.app-title {
+  font-family:  georgia; /* 🔸 Change font here */
+  font-size: 2.4rem;
+  color: #292825; /* 🔸 Change name color here */
+  text-shadow: 0 0 8px #363633;
+  margin-bottom: 10px;
+}
+
+/* ===== DISPLAY & QUOTES ===== */
+.display {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.quote-box {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #e6e6e6;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  width: 90%;
+  min-height: 30px;
+  transition: opacity 0.5s;
+  overflow: hidden;
+}
+
+#display {
+  width: 90%;
+  height: 50px;
+  font-size: 1.4rem;
+  text-align: right;
+  border: none;
+  border-radius: 15px;
+  padding: 8px 12px;
+  background-color: #2b2b2b; /* 🔸 Change display background here */
+  color: #fff;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* ===== BUTTON GRID ===== */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 90%;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  background: #4a3b32; /* 🔸 Change button background color here */
+  color: #f7e9dc;       /* 🔸 Change button text color here */
+  border: none;
+  border-radius: 25px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #f1c40f;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.equals {
+  background: #f5d76e; /* 🔸 Special color for "=" button */
+  color: #000;
+  font-weight: bold;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 600px) {
+  .calculator-container {
+    max-width: 95%;
+  }
+  .app-title {
+    font-size: 2rem;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+
+
