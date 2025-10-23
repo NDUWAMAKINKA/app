@@ -26,8 +26,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   max-width: 420px;
   justify-content: center;
   background: rgba(0, 0, 0, 0.85);
@@ -70,8 +70,8 @@ body {
 }
 
 #display {
-  width: 90%;
-  height: 50px;
+  width: 100vw;
+  height: 100vh;
   font-size: 1.4rem;
   text-align: right;
   border: none;
@@ -128,6 +128,7 @@ button:hover {
     padding: 10px;
   }
 }
+
 
 
 
