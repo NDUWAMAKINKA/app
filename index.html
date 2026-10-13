@@ -2,75 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nduwa Makinka" />
   <title>Nduwa Makinka Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="calculator-container">
-    <!-- ===== TITLE ===== -->
-    <h1 class="app-title">NDUWA MAKINKA</h1>
-
     <!-- ===== CALCULATOR BODY ===== -->
     <div class="calculator">
+      <!-- ===== TWO-LAYER DISPLAY ===== -->
       <div class="display">
         <!-- Quotes appear here -->
         <div id="quoteBox" class="quote-box">
           “The important thing is not to stop questioning.” – Albert Einstein
         </div>
-        <!-- User input/output -->
-        <input type="text" id="display" readonly placeholder="0" />
+
+        <!-- Casio-style two-line screen: expression on top, result below -->
+        <div class="screen">
+          <span id="memIndicator" class="mem-ind" aria-hidden="true">M</span>
+          <div id="exprLine" class="expr-line" role="textbox" aria-readonly="true" aria-label="Expression"></div>
+          <div id="resultLine" class="result-line" role="textbox" aria-readonly="true" aria-label="Result"></div>
+        </div>
       </div>
 
-      <!-- ===== BUTTONS ===== -->
+      <!-- ===== BUTTONS (5-column scientific keypad) ===== -->
       <div class="buttons">
-        <button onclick="clearDisplay()">AC</button>
-        <button onclick="appendChar('(')">(</button>
-        <button onclick="appendChar(')')">)</button>
+        <!-- Row 1: logs, fraction d-pad up, edit -->
+        <button class="fn" onclick="appendChar('log(')">log</button>
+        <button class="fn pad-key" onclick="moveVertical(-1)" title="Move up (numerator)">▲</button>
+        <button class="fn" onclick="appendChar('ln(')">ln</button>
+        <button class="delete" onclick="deleteChar()">⌫</button>
+        <button class="ac" onclick="clearDisplay()">AC</button>
+
+        <!-- Row 2: fraction d-pad — left / fraction-box / right -->
+        <button class="fn pad-key" onclick="moveCursor(-1)" title="Move left">◀</button>
+        <button class="frac-key pad-key" onclick="insertFraction()" title="Insert fraction (a/b)" aria-label="Insert fraction">
+          <span class="fk-box"></span>
+          <span class="fk-line"></span>
+          <span class="fk-box"></span>
+        </button>
+        <button class="fn pad-key" onclick="moveCursor(1)" title="Move right">▶</button>
         <button onclick="appendChar('%')">%</button>
+        <button id="sciBtn" class="sci" onclick="toggleSci()" title="Toggle scientific notation">SCI</button>
 
-        <button onclick="appendChar('Math.sqrt(')">√</button>
-        <button onclick="appendChar('Math.PI')">π</button>
-        <button onclick="appendChar('^')">^</button>
-        <button onclick="appendChar('!')">!</button>
+        <!-- Row 3: powers / roots, d-pad down under the fraction box -->
+        <button onclick="appendChar('²')">x²</button>
+        <button class="pad-key" onclick="moveVertical(1)" title="Move down (denominator)">▼</button>
+        <button onclick="appendChar('^')">xʸ</button>
+        <button onclick="appendChar('√(')">√</button>
+        <button class="fn" onclick="insertRoot()" title="Nth root: type degree, ▶, then the number">ⁿ√</button>
 
-        <button onclick="appendChar('Math.sin(')">sin</button>
-        <button onclick="appendChar('Math.cos(')">cos</button>
-        <button onclick="appendChar('Math.tan(')">tan</button>
+        <!-- Row 4: TRIG block (top row) + exponential / factorial -->
+        <button class="fn" onclick="appendChar('sin(')">sin</button>
+        <button class="fn" onclick="appendChar('cos(')">cos</button>
+        <button class="fn" onclick="appendChar('tan(')">tan</button>
+        <button onclick="appendChar('e^')">eˣ</button>
+        <button onclick="appendChar('!')">n!</button>
+
+        <!-- Row 5: TRIG block (bottom row) + constants / divide -->
+        <button class="fn" onclick="appendChar('sin⁻¹(')">sin⁻¹</button>
+        <button class="fn" onclick="appendChar('cos⁻¹(')">cos⁻¹</button>
+        <button class="fn" onclick="appendChar('tan⁻¹(')">tan⁻¹</button>
+        <button onclick="appendChar('π')">π</button>
         <button onclick="appendChar('/')">÷</button>
 
-        <button onclick="appendChar('Math.E')">e</button>
-        <button onclick="appendChar('Math.log(')">ln</button>
-        <button onclick="appendChar('Math.log10(')">log</button>
-        <button onclick="appendChar('*')">×</button>
-
+        <!-- Row 6: numbers 7-9 + brackets + multiply -->
         <button onclick="appendChar('7')">7</button>
         <button onclick="appendChar('8')">8</button>
         <button onclick="appendChar('9')">9</button>
-        <button onclick="appendChar('-')">−</button>
+        <button onclick="appendChar('(')">(</button>
+        <button onclick="appendChar('*')">×</button>
 
+        <!-- Row 7 -->
         <button onclick="appendChar('4')">4</button>
         <button onclick="appendChar('5')">5</button>
         <button onclick="appendChar('6')">6</button>
-        <button onclick="appendChar('+')">+</button>
+        <button onclick="appendChar(')')">)</button>
+        <button onclick="appendChar('-')">−</button>
 
+        <!-- Row 8 -->
         <button onclick="appendChar('1')">1</button>
         <button onclick="appendChar('2')">2</button>
         <button onclick="appendChar('3')">3</button>
-        <button class="equals" onclick="calculate()">=</button>
+        <button onclick="appendChar('abs(')">|x|</button>
+        <button onclick="appendChar('+')">+</button>
 
+        <!-- Row 9 -->
         <button onclick="appendChar('0')">0</button>
+        <button onclick="appendChar('10^')" title="10 to the power x">10ˣ</button>
         <button onclick="appendChar('.')">.</button>
-        <button onclick="deleteChar()">⌫</button>
-        <footer class="app-footer">
-  <p style="font-style: italic;color: #7485bd;">Makinka Web Developers</p>
-</footer>
+        <button class="equals" onclick="calculate()">=</button>
       </div>
+
+      <footer class="app-footer">
+        <p>Makinka Web Developers</p>
+      </footer>
     </div>
   </div>
-  
 
   <script src="script.js"></script>
 </body>
 </html>
-

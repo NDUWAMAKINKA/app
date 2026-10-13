@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&family=Roboto+Mono:wght@400;500&display=swap');
 
 /* ===== GENERAL STYLING ===== */
 * {
@@ -7,100 +7,278 @@
   padding: 0;
 }
 
+:root {
+  --page-gap: clamp(0px, 2vw, 20px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
 html, body {
-  height: 100%;
-  overflow: hidden; /* Prevent scrolling */
+  min-height: 100%;
 }
 
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("background.jpg") no-repeat center center/cover; 
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: calc(var(--page-gap) + var(--safe-top)) calc(var(--page-gap) + var(--safe-right)) calc(var(--page-gap) + var(--safe-bottom)) calc(var(--page-gap) + var(--safe-left));
+  overscroll-behavior: none;
+  background: url("background.jpg") no-repeat center center/cover fixed; 
   /* 🔸 Change 'background.jpg' to your preferred image file */
   font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* ===== CONTAINER ===== */
 .calculator-container {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-  max-width: 420px;
   justify-content: center;
+  width: 100%;
+  max-width: 420px;
+  height: calc(100vh - 2 * var(--page-gap) - var(--safe-top) - var(--safe-bottom));
+  height: calc(100dvh - 2 * var(--page-gap) - var(--safe-top) - var(--safe-bottom));
   background: rgba(0, 0, 0, 0.85);
-  border-radius: 25px;
-  padding: 15px;
+  border-radius: clamp(16px, 4vw, 25px);
+  padding: clamp(10px, 2.4vw, 18px);
   box-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 
-/* ===== TITLE ===== */
-.app-title {
-  font-family:  georgia; /* 🔸 Change font here */
-  font-size: 2.4rem;
-  color: #292825; /* 🔸 Change name color here */
-  text-shadow: 0 0 8px #363633;
-  margin-bottom: 10px;
+/* ===== CALCULATOR BODY ===== */
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+/* ===== TOP KEY STRIP (memory / reciprocal) ===== */
+.topbar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(5px, 1.5cqw, 9px);
+  width: 96%;
+  margin-bottom: clamp(8px, 2.2cqw, 14px);
+}
+
+.topbar button {
+  padding: clamp(5px, 1.6cqw, 8px) 2px;
+  font-size: clamp(0.6rem, 2.1cqw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  background: #2f343b;
+  color: #cbd5e1;
+  border-radius: clamp(8px, 2.4cqw, 12px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.topbar button:hover {
+  background: #f1c40f;
+  color: #000;
 }
 
 /* ===== DISPLAY & QUOTES ===== */
 .display {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: clamp(8px, 2.5cqw, 15px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
 .quote-box {
-  font-size: 0.85rem;
+  width: 96%;
+  height: clamp(66px, 20cqw, 96px);
+  margin-bottom: clamp(6px, 1.8cqw, 10px);
+  padding: clamp(8px, 2.4cqw, 11px) clamp(9px, 2.8cqw, 13px);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: clamp(10px, 3cqw, 15px);
+  font-size: clamp(0.82rem, 3.4cqw, 1.02rem);
+  color: #cfd3d8;
   text-align: center;
-  color: #e6e6e6;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 6px 10px;
-  margin-bottom: 6px;
-  width: 90%;
-  min-height: 30px;
+  line-height: 1.35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   transition: opacity 0.5s;
+}
+
+/* ---- Casio-style two-line screen ---- */
+.screen {
+  position: relative;
+  width: 96%;
+  background-color: #2b2b2b; /* 🔸 Change display background here */
+  border-radius: clamp(10px, 3cqw, 15px);
+  padding: clamp(4px, 1.6cqw, 6px) clamp(8px, 2.8cqw, 12px) clamp(6px, 1.8cqw, 8px);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+/* small "M" flag shown when a value is stored in memory */
+.mem-ind {
+  position: absolute;
+  top: clamp(3px, 1cqw, 6px);
+  left: clamp(8px, 2.4cqw, 12px);
+  font-family: 'Roboto Mono', monospace;
+  font-size: clamp(0.6rem, 2cqw, 0.75rem);
+  font-weight: 600;
+  color: #f1c40f;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.mem-ind.on {
+  opacity: 1;
+}
+
+.expr-line {
+  height: clamp(34px, 9cqw, 42px);
+  min-height: clamp(34px, 9cqw, 42px);
+  line-height: clamp(34px, 9cqw, 42px);
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: clamp(1rem, 4.1cqw, 1.3rem);
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-align: right;
+  white-space: nowrap;
   overflow: hidden;
 }
 
-#display {
-  width: 90%;
-  height: 50px;
-  font-size: 1.4rem;
+.expr-line .tok {
+  white-space: pre;
+}
+
+.result-line {
+  min-height: clamp(22px, 5.6cqw, 26px);
+  line-height: clamp(22px, 5.6cqw, 26px);
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: 'Roboto Mono', 'Consolas', monospace;
+  font-size: clamp(0.85rem, 3.4cqw, 1.02rem);
+  letter-spacing: 0.5px;
+  color: #7fd7a5;
   text-align: right;
-  border: none;
-  border-radius: 15px;
-  padding: 8px 12px;
-  background-color: #2b2b2b; /* 🔸 Change display background here */
-  color: #fff;
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Blinking text cursor */
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  background: #f1c40f;
+  vertical-align: -0.14em;
+  border-radius: 1px;
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ---- Stacked fraction (two boxes + bar) ---- */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin: 0 3px;
+  font-size: 0.72em;
+  line-height: 1.05;
+}
+
+.frac-num,
+.frac-den {
+  min-width: 18px;
+  padding: 0 5px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 5px;
+}
+
+.frac-bar {
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  margin: 1px 0;
+  border-radius: 1px;
+}
+
+.frac-active {
+  background: #f1c40f;
+  color: #000;
+  border-color: #f1c40f;
+}
+
+/* ---- Fraction key (mini stacked fraction) ---- */
+.frac-key {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+
+.frac-key .fk-box {
+  display: block;
+  width: 16px;
+  height: 9px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+.frac-key .fk-line {
+  width: 20px;
+  height: 2px;
+  margin: 1px 0;
+  background: currentColor;
+  border-radius: 1px;
 }
 
 /* ===== BUTTON GRID ===== */
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 90%;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(0, 1fr);
+  gap: clamp(5px, 1.5cqw, 9px);
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
 }
 
-/* ===== BUTTONS ===== */
 button {
-  background: #4a3b32; /* 🔸 Change button background color here */
-  color: #f7e9dc;       /* 🔸 Change button text color here */
-  border: none;
-  border-radius: 25px;
-  padding: 12px;
-  font-size: 1rem;
+  background: #3a3f47;
+  color: #eef3f8;
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  border-radius: clamp(10px, 3cqw, 14px);
+  min-height: 0;
+  padding: clamp(9px, 2.7cqw, 14px) 4px;
+  font-size: clamp(0.8rem, 2.7cqw, 1rem);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 button:hover {
@@ -109,26 +287,152 @@ button:hover {
   transform: scale(1.05);
 }
 
-.equals {
-  background: #f5d76e; /* 🔸 Special color for "=" button */
-  color: #000;
-  font-weight: bold;
+/* Scientific function keys */
+button.fn {
+  font-size: clamp(0.62rem, 2.2cqw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  background: #2f343b;
+  color: #cbd5e1;
+}
+
+/* Trig "d-pad" cluster:
+   up=cos  left=sin⁻¹  centre=cos⁻¹  right=tan⁻¹  down=x³ */
+button.pad-key {
+  background: #24303a;
+  color: #7fd8ff;
+  box-shadow: inset 0 0 0 1px rgba(127, 216, 255, 0.30);
+}
+
+button.pad-key:hover {
+  background: #2d3d49;
+  color: #b3ecff;
+}
+
+/* Delete key */
+button.delete {
+  color: #ffb4a2;
+}
+
+/* AC / clear */
+button.ac {
+  background: #b23a34;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* = (equals): flat golden key (no shine) */
+button.equals {
+  grid-column: 4 / span 2;
+  position: relative;
+  overflow: hidden;
+  background: #f1c40f;
+  color: #3a2c00;
+  font-weight: 800;
+  font-size: clamp(1.02rem, 3.4cqw, 1.3rem);
+  letter-spacing: 1px;
+  border-radius: clamp(10px, 3cqw, 15px);
+  box-shadow: 0 3px 0 #8a6400;
+}
+
+button.equals:hover {
+  background: #f7d13a;
+}
+
+button.equals:active {
+  background: #e0b900;
+  box-shadow: 0 1px 0 #8a6400;
+}
+
+/* SCI toggle */
+button.sci {
+  background: #2f343b;
+  color: #cbd5e1;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: clamp(0.68rem, 2.4cqw, 0.85rem);
+}
+
+button.sci.active {
+  background: #f1c40f;
+  color: #1a1a1a;
+}
+
+/* Fraction key: two little boxes + bar */
+.frac-key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.fk-box {
+  display: block;
+  width: clamp(14px, 4.2cqw, 19px);
+  height: clamp(8px, 2.4cqw, 11px);
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+}
+
+.fk-line {
+  display: block;
+  width: clamp(18px, 4.8cqw, 24px);
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+  margin-top: clamp(6px, 2cqw, 12px);
+  flex: 0 0 auto;
+}
+
+.app-footer p {
+  font-style: italic;
+  color: #7485bd;
+  font-size: clamp(0.72rem, 2.4cqw, 0.85rem);
+  text-align: center;
 }
 
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
-@media (max-width: 600px) {
-  .calculator-container {
-    max-width: 95%;
-  }
-  .app-title {
-    font-size: 2rem;
-  }
-  button {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
+
+/* Common laptop heights (e.g. 768px): trim vertical space so the whole
+   panel fits without a scrollbar. */
+@media (max-height: 820px) {
+  .display { margin-bottom: 7px; }
+  button { padding-top: 7px; padding-bottom: 7px; }
+  .app-footer { margin-top: 7px; }
 }
 
+/* Very short viewports (landscape phones / tiny windows): keep the
+   key sizes a touch tighter so everything still fits. */
+@media (max-height: 620px) {
+  .quote-box { height: 52px; font-size: 0.76rem; }
+  .display { margin-bottom: 6px; }
+  .app-footer { margin-top: 6px; }
+  button { padding-top: 5px; padding-bottom: 5px; }
+}
 
+/* Landscape phones: reclaim space from the display so the keys stay
+   tappable while the panel still fits without scrolling. */
+@media (max-height: 520px) {
+  .quote-box { height: 26px; font-size: 0.58rem; margin-bottom: 4px; }
+  .expr-line { height: 26px; min-height: 26px; line-height: 26px; }
+  .result-line { min-height: 16px; }
+  .display { margin-bottom: 4px; }
+  button { padding-top: 3px; padding-bottom: 3px; line-height: 1.1; }
+  .buttons { gap: 4px; }
+}
 
-
+/* Ultra-short landscape (very small phones): drop the quote and tighten
+   further so the keypad keeps a clean, non-clipped fit. */
+@media (max-height: 380px) {
+  .quote-box { display: none; }
+  .calculator-container { padding-top: 6px; padding-bottom: 6px; }
+  .display { margin-bottom: 3px; }
+  .app-footer { margin-top: 3px; font-size: 0.5rem; }
+  button { padding-top: 2px; padding-bottom: 2px; }
+  .buttons { gap: 3px; }
+}
